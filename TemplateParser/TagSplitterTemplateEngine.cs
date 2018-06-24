@@ -27,19 +27,20 @@ namespace TemplateParser
                 int tagLength = closeBrackerIndex - openBracketIndex - 1;
                 string currTag = currString.Substring(openBracketIndex + 1, tagLength);
                 // with parser
+                bool found = false;
                 foreach (IMyParser myParser in this.MyTagParsers)
                 {
-                    if (myParser.IdentifyParser(currTag))
+                    if (!found && (found = myParser.IdentifyParser(currTag)))
                     {
                         string tag_value = myParser.Apply(currTag, dataSourceDict);
                         result.Append(tag_value);
                         currString = myParser.Truncate(currString, closeBrackerIndex);
                     }
                 }
-                if (currString.Length > 0)
-                {
-                    result.Append(currString);
-                }
+            }
+            if (currString.Length > 0)
+            {
+                result.Append(currString);
             }
 
             return result.ToString();

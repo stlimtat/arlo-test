@@ -16,11 +16,14 @@ namespace TemplateParser {
             this.myTagParsers = new List<IMyParser>();
             // the With tag parser
             IMyParser parser = null;
+
             // the composite tag parser
+            parser = new CompositeTagParser();
+            this.myTagParsers.Add(parser);
+
             // the dataSource simple tag parser
             parser = new BasicTagParser();
             this.myTagParsers.Add(parser);
-
             // the C# expression language tag parser
         }
 

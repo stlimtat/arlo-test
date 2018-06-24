@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="AbstractTruncateFromCloseTagParser.cs" />
     <Compile Include="BasicTagParser.cs" />
+    <Compile Include="CompositeTagParser.cs" />
     <Compile Include="IMyParser.cs" />
     <Compile Include="ITemplateEngine.cs" />
     <Compile Include="TagSplitterTemplateEngine.cs" />
