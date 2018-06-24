@@ -5,34 +5,33 @@ using System.Text;
 
 namespace TemplateParser
 {
-    class TagSplitterTemplateEngine : ITemplateEngine
+    public class TagSplitterTemplateEngine : ITemplateEngine
     {
-        private List<IMyParser> tagMyParsers;
+        internal List<IMyParser> MyTagParsers { get; set; }
 
-        TagSplitterTemplateEngine(List<IMyParser> tagMyParsers)
-        {
-            this.tagMyParsers = tagMyParsers;
-        }
-
-        string ITemplateEngine.Apply(string template, object dataSource)
+        public string Apply(string template, object dataSource)
         {
             StringBuilder result = new StringBuilder();
+
+            // I only have one caller
+            IDictionary<string, object> dataSourceDict = (IDictionary<string, object>) dataSource;
+
             string currString = template;
             // Search for all occurances of tokens
             // start from -1 instead of 0 since 0 can be a valid start of a tag
             for (int openBracketIndex = -1; (openBracketIndex = currString.IndexOf('[')) > -1;)
             {
-                result.Append(currString.Substring(0, openBracketIndex - 1));
+                result.Append(currString.Substring(0, openBracketIndex));
                 // Determine the type of parser
                 int closeBrackerIndex = currString.IndexOf(']', openBracketIndex);
                 int tagLength = closeBrackerIndex - openBracketIndex - 1;
                 string currTag = currString.Substring(openBracketIndex + 1, tagLength);
                 // with parser
-                foreach (IMyParser myParser in tagMyParsers)
+                foreach (IMyParser myParser in this.MyTagParsers)
                 {
                     if (myParser.IdentifyParser(currTag))
                     {
-                        string tag_value = myParser.Apply(currTag, dataSource);
+                        string tag_value = myParser.Apply(currTag, dataSourceDict);
                         result.Append(tag_value);
                         currString = myParser.Truncate(currString, closeBrackerIndex);
                     }

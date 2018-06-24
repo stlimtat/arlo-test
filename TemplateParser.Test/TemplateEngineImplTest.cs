@@ -18,8 +18,8 @@ namespace TemplateParser.Test {
             var dataSource = new { 
                 Name = "John" 
             };
-            string output = engine.Apply("Hello [Name]", dataSource);
-            Assert.AreEqual("Hello John", output);
+            string output = engine.Apply("Hello [Name] Where are we?", dataSource);
+            Assert.AreEqual("Hello John Where are we?", output);
         }
 
         /// <summary>

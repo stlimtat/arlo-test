@@ -5,10 +5,10 @@ using System.Text;
 
 namespace TemplateParser
 {
-    interface IMyParser
+    internal interface IMyParser
     {
         bool IdentifyParser(string tag);
-        string Apply(string tag, object dataSource);
-        string Truncate(string body, int close_brkt_index);
+        string Apply(string tag, IDictionary<string, object> dataSourceDict);
+        string Truncate(string body, int closeBracketIndex);
     }
 }

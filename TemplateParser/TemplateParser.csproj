@@ -40,6 +40,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,11 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractTruncateFromCloseTagParser.cs" />
+    <Compile Include="BasicTagParser.cs" />
     <Compile Include="IMyParser.cs" />
     <Compile Include="ITemplateEngine.cs" />
     <Compile Include="TagSplitterTemplateEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateEngineImpl.cs" />
+    <Compile Include="WithTagParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="README.txt" />
