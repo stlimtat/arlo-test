@@ -10,6 +10,11 @@ namespace TemplateParser
         public abstract string Apply(string tag, IDictionary<string, object> dataSource);
         public abstract bool IdentifyParser(string tag);
 
+        public bool IfFoundExitTagSplitterLoop()
+        {
+            return false;
+        }
+
         public string Truncate(string body, int closeBracketIndex)
         {
             string result = string.Empty;

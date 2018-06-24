@@ -19,12 +19,13 @@ namespace TemplateParser
             string currString = template;
             // Search for all occurances of tokens
             // start from -1 instead of 0 since 0 can be a valid start of a tag
-            for (int openBracketIndex = -1; (openBracketIndex = currString.IndexOf('[')) > -1;)
+            bool exitFromSplitterLoop = false;
+            for (int openBracketIndex = -1; !exitFromSplitterLoop && ((openBracketIndex = currString.IndexOf('[')) > -1);)
             {
                 result.Append(currString.Substring(0, openBracketIndex));
                 // Determine the type of parser
-                int closeBrackerIndex = currString.IndexOf(']', openBracketIndex);
-                int tagLength = closeBrackerIndex - openBracketIndex - 1;
+                int closeBracketIndex = currString.IndexOf(']', openBracketIndex);
+                int tagLength = closeBracketIndex - openBracketIndex - 1;
                 string currTag = currString.Substring(openBracketIndex + 1, tagLength);
                 // with parser
                 bool found = false;
@@ -34,7 +35,8 @@ namespace TemplateParser
                     {
                         string tag_value = myParser.Apply(currTag, dataSourceDict);
                         result.Append(tag_value);
-                        currString = myParser.Truncate(currString, closeBrackerIndex);
+                        currString = myParser.Truncate(currString, closeBracketIndex);
+                        exitFromSplitterLoop = myParser.IfFoundExitTagSplitterLoop();
                     }
                 }
             }

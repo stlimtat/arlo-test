@@ -14,8 +14,10 @@ namespace TemplateParser {
             // Usually I will use dependency injection to run this initialization
             // But in this case, I leave it to the constructor
             this.myTagParsers = new List<IMyParser>();
-            // the With tag parser
             IMyParser parser = null;
+            // the With tag parser
+            parser = new WithTagParser();
+            this.myTagParsers.Add(parser);
 
             // the composite tag parser
             parser = new CompositeTagParser();
