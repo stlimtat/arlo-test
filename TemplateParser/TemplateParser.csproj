@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="IMyParser.cs" />
     <Compile Include="ITemplateEngine.cs" />
+    <Compile Include="TagSplitterTemplateEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateEngineImpl.cs" />
   </ItemGroup>
