@@ -40,12 +40,31 @@ namespace TemplateParser
 
         public string Apply(string tag, IDictionary<string, object> dataSourceDict)
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public string ApplyWrapper(string inBody, out string outBody, IDictionary<string, object> dataSourceDict)
+        {
+            string result = string.Empty;
+            outBody = String.Copy(inBody);
+
+
+            return result;
         }
 
         public bool IdentifyParser(string tag)
         {
             return tag.StartsWith(WITH);
+        }
+
+        public bool IfFoundExitTagSplitterLoop()
+        {
+            return false;
+        }
+
+        public bool IsWrapperParser()
+        {
+            return true;
         }
 
         public string Truncate(string body, int closeBracketIndex)

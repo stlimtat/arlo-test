@@ -33,10 +33,16 @@ namespace TemplateParser
                 {
                     if (!found && (found = myParser.IdentifyParser(currTag)))
                     {
-                        string tag_value = myParser.Apply(currTag, dataSourceDict);
-                        result.Append(tag_value);
-                        currString = myParser.Truncate(currString, closeBracketIndex);
-                        exitFromSplitterLoop = myParser.IfFoundExitTagSplitterLoop();
+                        if (myParser.IsWrapperParser())
+                        {
+                            result.Append(myParser.ApplyWrapper(out currString, dataSourceDict));
+                        } else
+                        {
+                            string tagValue = myParser.Apply(currTag, dataSourceDict);
+                            result.Append(tagValue);
+                            currString = myParser.Truncate(currString, closeBracketIndex);
+                            exitFromSplitterLoop = myParser.IfFoundExitTagSplitterLoop();
+                        }
                     }
                 }
             }

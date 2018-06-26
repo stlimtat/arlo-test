@@ -4,9 +4,9 @@ namespace TemplateParser
 {
     internal class EndWithTagParser : AbstractTruncateFromCloseTagParser
     {
-        private const string END_WITH = '/with';
+        private const string END_WITH = "/with";
 
-        public override string Apply(string tag, string template, IDictionary<string, object> dataSourceDict)
+        public override string Apply(string tag, IDictionary<string, object> dataSourceDict)
         {
             return string.Empty;
         }

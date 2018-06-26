@@ -10,7 +10,7 @@ namespace TemplateParser
     {
         private const char DELIMITER = '.';
 
-        public override string Apply(string tag, string template, IDictionary<string, object> dataSourceDict)
+        public override string Apply(string tag, IDictionary<string, object> dataSourceDict)
         {
             string result = string.Empty;
             string[] tagCompositeProperty = tag.Split(DELIMITER);
