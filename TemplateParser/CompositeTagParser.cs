@@ -10,6 +10,17 @@ namespace TemplateParser
     {
         private const char DELIMITER = '.';
 
+        private static CompositeTagParser _instance;
+
+        internal static CompositeTagParser getInstance()
+        {
+            if (_instance == null)
+            {
+                _instance = new CompositeTagParser();
+            }
+            return _instance;
+        }
+
         public override string Apply(string tag, IDictionary<string, object> dataSourceDict)
         {
             string result = string.Empty;
