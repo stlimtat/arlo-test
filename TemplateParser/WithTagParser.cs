@@ -11,7 +11,6 @@ namespace TemplateParser
         private const string WITH = "with";
 
         private static TagSplitterTemplateEngine tagSplitterTemplateEngine;
-        private static List<IMyParser> myTagParsers;
         private static WithTagParser _instance;
 
         internal static WithTagParser getInstance()
@@ -20,27 +19,28 @@ namespace TemplateParser
             {
                 _instance = new WithTagParser();
                 WithTagParser.tagSplitterTemplateEngine = new TagSplitterTemplateEngine();
-                WithTagParser.myTagParsers = new List<IMyParser>();
+                List<IMyParser> myTagParsers = new List<IMyParser>();
                 // Usually I will use dependency injection to run this initialization
                 // But in this case, I leave it to the constructor
-                WithTagParser.myTagParsers = new List<IMyParser>();
                 IMyParser parser = null;
                 // the end with tag parser
                 parser = EndWithTagParser.getInstance();
-                WithTagParser.myTagParsers.Add(parser);
+                myTagParsers.Add(parser);
 
                 // the With tag parser
                 parser = WithTagParser._instance;
-                WithTagParser.myTagParsers.Add(parser);
+                myTagParsers.Add(parser);
 
                 // the composite tag parser
                 parser = CompositeTagParser.getInstance();
-                WithTagParser.myTagParsers.Add(parser);
+                myTagParsers.Add(parser);
 
                 // the dataSource simple tag parser
                 parser = BasicTagParser.getInstance();
-                WithTagParser.myTagParsers.Add(parser);
+                myTagParsers.Add(parser);
                 // the C# expression language tag parser
+
+                WithTagParser.tagSplitterTemplateEngine.MyTagParsers = myTagParsers;
             }
             return _instance;
         }
@@ -72,7 +72,7 @@ namespace TemplateParser
                 // This is where magic happens, and we should expect that the section of the data until the part where 
                 // terminator is encountered is dealt with
                 // TODO: Test
-                result = this.tagSplitterTemplateEngine.Apply(outBody, subDataSourceDict);
+                result = WithTagParser.tagSplitterTemplateEngine.Apply(outBody, subDataSourceDict);
             }
             return result;
         }
