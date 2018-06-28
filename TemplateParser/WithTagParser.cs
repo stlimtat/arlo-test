@@ -55,10 +55,9 @@ namespace TemplateParser
             throw new NotImplementedException();
         }
 
-        public override string ApplyWrapper(string tag, string inBody, out string outBody, IDictionary<string, object> dataSourceDict)
+        public override string ApplyWrapper(string tag, string inBody, IDictionary<string, object> dataSourceDict)
         {
             string result = string.Empty;
-            outBody = String.Copy(inBody);
 
             // The code here is only for a "with" expression.  
             // We can potentially support "for" expressions or other expressions later.
@@ -72,7 +71,7 @@ namespace TemplateParser
                 // This is where magic happens, and we should expect that the section of the data until the part where 
                 // terminator is encountered is dealt with
                 // TODO: Test
-                result = WithTagParser.tagSplitterTemplateEngine.Apply(outBody, subDataSourceDict);
+                result = WithTagParser.tagSplitterTemplateEngine.Apply(inBody, subDataSourceDict);
             }
             return result;
         }

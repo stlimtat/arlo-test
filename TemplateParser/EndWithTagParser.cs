@@ -26,7 +26,7 @@ namespace TemplateParser
             return tag.StartsWith(END_WITH);
         }
 
-        public new bool IfFoundExitTagSplitterLoop()
+        public override bool IfFoundExitTagSplitterLoop()
         {
             return true;
         }

@@ -35,10 +35,9 @@ namespace TemplateParser
                     {
                         if (myParser.IsWrapperParser())
                         {
-                            string newString = string.Empty;
                             // do something before passing into the apply wrapper
                             currString = myParser.Truncate(currString, closeBracketIndex);
-                            result.Append(myParser.ApplyWrapper(currTag, currString, out newString, dataSourceDict));
+                            currString = myParser.ApplyWrapper(currTag, currString, dataSourceDict);
                         } else
                         {
                             string tagValue = myParser.Apply(currTag, dataSourceDict);

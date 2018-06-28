@@ -22,12 +22,28 @@ namespace TemplateParser
         public override string Apply(string tag, IDictionary<string, object> dataSourceDict)
         {
             string result = string.Empty;
-            if (dataSourceDict.ContainsKey(tag))
+            string actualTag = tag;
+            string formattingString = string.Empty;
+            // Heck we could have solved this with regex - humbug
+            int tagSpaceIndex = tag.IndexOf(' ');
+            if (tagSpaceIndex > -1)
             {
-                object tagValue = dataSourceDict[tag];
+                // there is a formatting provided for the data
+                actualTag = tag.Substring(0, tagSpaceIndex).Trim();
+                string remainingTag = tag.Substring(tagSpaceIndex + 1).Trim();
+                int tagOpenQuoteIndex = remainingTag.IndexOf('"');
+                formattingString = remainingTag.Substring(tagOpenQuoteIndex + 1, remainingTag.Length - 2);
+            }
+            if (dataSourceDict.ContainsKey(actualTag))
+            {
+                object tagValue = dataSourceDict[actualTag];
                 if (tagValue.GetType() == typeof(string))
                 {
                     result = (string)tagValue;
+                } else if (tagValue.GetType() == typeof(DateTimeOffset))
+                {
+                    DateTimeOffset date = (DateTimeOffset)tagValue;
+                    result = date.ToString(formattingString);
                 }
             }
             return result;

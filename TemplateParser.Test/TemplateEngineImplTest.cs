@@ -54,8 +54,8 @@ namespace TemplateParser.Test {
                     }
                 }
             };
-            string output = engine.Apply(@"[with Contact]Hello [FirstName] from [with Organisation][Name] in [City][/with][/with]", dataSource);
-            Assert.AreEqual("Hello John from Acme Ltd in Auckland", output);
+            string output = engine.Apply(@"[with Contact]Hello [FirstName] from [with Organisation][Name] in [City][/with][/with] very naughty additions", dataSource);
+            Assert.AreEqual("Hello John from Acme Ltd in Auckland very naughty additions", output);
         }
 
         /// <summary>

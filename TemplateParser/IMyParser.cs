@@ -34,6 +34,6 @@ namespace TemplateParser
          * the wrapper should search for it's terminator, and then replace until the 
          * terminator
          **/
-        string ApplyWrapper(string tag, string inBody, out string outBody, IDictionary<string, object> dataSourceDict);
+        string ApplyWrapper(string tag, string inBody, IDictionary<string, object> dataSourceDict);
     }
 }
